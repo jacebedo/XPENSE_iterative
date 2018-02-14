@@ -42,3 +42,8 @@ button#addExpense:hover, button#addWallet:hover {
   background-color: #bfc0c0;
   color: #4f5d75;
 }
+
+div#walletValueExplanation {
+  font-size: 12px;
+
+}
