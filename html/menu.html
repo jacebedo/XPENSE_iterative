@@ -81,19 +81,58 @@
     </div>
 
     <!-- Modals -->
-    <div class='modal fade' id='expenseModal' role='dialog'>
-      <div class='modal-dialog modal-lg' role='document'>
-          <div class='modal-content'>
-            <div class='modal-header'>
+    <div class="modal fade" id="expenseModal" role="dialog">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
               <h4>Add an expense</h4>
             </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="expenseName"> Expense Name </label>
+                  <input class="form-control" id="expenseName" type="email" placeholder ="Expense Name"/>
+                </div>
+
+                <label for="expenseValue"> Value of Expense </label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <input class="form-control" id="expenseValue" type="number" min="0.00" step="0.01" placeholder =""/>
+                </div>
+                <br>
+                <div class="form-group">
+                  <label for="expenseType"> Expense Type </label>
+                  <select id="expenseType" class="custom-select">
+                    <option selected></option>
+                    <option value="food">Food</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="recreation">Recreational Activities</option>
+                    <option value="transportation">Transportation</option>
+                    <option value="utilities">Utilities/Bills</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="expenseWallet"> Select a wallet </label>
+                  <select id="expenseWallet"class="custom-select">
+                    <option selected></option>
+                  </select>
+                </div>
+
+              </form>
+            </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Add expense</button>
+              <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Close</button>
+              <button type="button" id="addExpense" class="btn btn-primary">Add expense</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
   </body>
 </html>

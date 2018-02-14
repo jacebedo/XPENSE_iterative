@@ -1,0 +1,44 @@
+body {
+  font-family: 'oswald',sans-serif;
+  background-color: #2d3142;
+  color:white;
+}
+
+.display-3 {
+  padding-top: 2.5%;
+  border-bottom: 1px solid white;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 25px;
+}
+
+/* Button styles */
+button {
+  background-color: #4f5d75;
+  color: #bfc0c0;
+  margin-bottom: 20px;
+  font-family: 'oswald',sans-sans-serif;
+
+}
+
+button:hover {
+  background-color: #bfc0c0;
+  color: #4f5d75;
+}
+
+/* Modal styles */
+.modal-content {
+  color: #4f5d75;
+  background-color: #f8f8ff;
+}
+
+button#addExpense, button#addWallet {
+  background-color: #4f5d75;
+  color: #bfc0c0;
+  font-family: 'oswald',sans-sans-serif;
+}
+
+button#addExpense:hover, button#addWallet:hover {
+  background-color: #bfc0c0;
+  color: #4f5d75;
+}
