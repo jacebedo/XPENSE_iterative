@@ -1,0 +1,26 @@
+{
+  "name": "xpense",
+  "version": "1.0.2",
+  "description": "A personal financing application for tracking the user's expenses and wallets.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "personal",
+    "finance",
+    "budgeting",
+    "wallet",
+    "XPENSE",
+    "expenses",
+    "money",
+    "business",
+    "personal"
+  ],
+  "author": "Jean Pierre Acebedo",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "nodemon": "^1.14.12"
+  }
+}

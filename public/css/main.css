@@ -1,0 +1,64 @@
+
+/*
+ *    Color pallete:
+ *    https://coolors.co/2d3142-bfc0c0-ffffff-ef8354-4f5d75;
+ */
+
+
+
+body {
+  line-height: 1.15;
+  background: linear-gradient(-90deg,#111218,#2d3142,#4f5d75);
+}
+
+div.container-fluid {
+  transform: translateY(250%);
+}
+
+
+
+div#about {
+  font-family:'oswald',sans-serif;
+  position:relative;
+  font-size: 1vw;
+  color:#FFFAFA;
+  transform: translateY(10%);
+}
+
+div#title {
+  font-family:'oswald',sans-serif;
+  border-left: 1px solid #FFFAFA;
+  color:#FFFAFA;
+}
+
+div#_welcome {
+  font-size: 2vw;
+}
+
+div#_title {
+  font-size: 5vw;
+}
+
+div#button {
+  transform: translateY(30%);
+}
+button#enter {
+  background-color: #bfc0c0;
+  color: #4f5d75;
+  font-family: 'oswald',sans-sans-serif;
+  width: 8vw;
+  height: 4vh;
+}
+
+button#enter:hover {
+  background-color: #4f5d75;
+  color: #bfc0c0;
+}
+
+footer {
+  color: #bfc0c0;
+  opacity: 0.15;
+  position:fixed;
+  top: 95%;
+  left: 42.5%;
+}

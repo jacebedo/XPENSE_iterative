@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title> Your Profile </title>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS Dependency -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Default Font -->
+    <link href="https://fonts.googleapis.com/css?family=Oswald:400,600" rel="stylesheet">
+    <!-- Development Scripts -->
+    <script type='text/javascript' src='/js/menu.js'></script>
+    <!-- Development CSS -->
+    <link rel='stylesheet' href='/css/menu.css'/>
+
+  </head>
+  <body>
+    <!-- Page content -->
+    <div class='container-fluid'>
+      <div id="content-container" class='row'>
+
+        <!-- Navigation -->
+        <div class="col-xl-2 ">
+          Navigation
+        </div>
+
+        <!-- Content -->
+        <div class="col-xl-9 ">
+
+          <h1 class="display-3">Your Profile  </h1>
+
+          <div class="row">
+            <div id="expenseOverview" class="col-xl-6 bg-dark">
+              <h3 class="display-5"> Expenses </br></h3>
+              <table id="expensesTable" class="table">
+                <thead>
+                  <tr>
+                    <td> Name </td>
+                    <td> Value </td>
+                    <td> Expense Type</td>
+                    <td> Wallet Type</td>
+                    <td> Date</td>
+                  </tr>
+                </thead>
+                <tr>    <!-- For each expense, add a row and 5 columns -->
+                </tr>
+              </table>
+
+              <!-- Expense modal button -->
+              <button type="button" class="btn btn-lg btn-block" data-toggle="modal" data-target="#expenseModal">Add Expense</button>
+
+            </div>
+
+            <div id="walletOverview" class="col-xl-6 bg-dark">
+              <h3 class="display-5"> Wallets </br></h3>
+              <table id="walletTable" class="table">
+                <thead>
+                  <tr>
+                    <td> Name </td>
+                    <td> Balance </td>
+                    <td> Wallet Type</td>
+                  </tr>
+                </thead>
+                <tr>    <!-- For each wallet, add a row and columns -->
+                </tr>
+              </table>
+
+              <button type="button" class="btn btn-lg btn-block" data-toggle="modal" data-target="#walletModal">Add wallet</button>
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+
+    <!-- Modals -->
+    <div class='modal fade' id='expenseModal' role='dialog'>
+      <div class='modal-dialog modal-lg' role='document'>
+          <div class='modal-content'>
+            <div class='modal-header'>
+              <h4>Add an expense</h4>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Add expense</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
