@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const fs = require('fs');
+const xpense_objects = require("./objects/objects.js");
 const bodyParser = require('body-parser');
 
 app.use(express.static('frontend'));
@@ -12,15 +14,36 @@ app.get('/', (req, res) => {
 });
 
 app.get(/.+\.html$/, (req, res) =>{
-  var filepath = path.join(__dirname,"html",req.url).replace("?","");
+  var filepath = path.join(__dirname,"html",req.url);
   res.sendFile(filepath);
 })
 
+// TODO: Refactor and clean functions
 app.post('/add/wallet', function(req,res){
   var name = req.body.walletName;
   var type = req.body.walletType;
-  var value = req.body.walletValue;
-  res.send(`Wallet Name: ${name}, Wallet Type: ${type},Wallet Value: ${value}`);
+  var balance = req.body.walletBalance;
+
+  var wallet = new xpense_objects.Wallet(name,type,balance);
+  var walletCollection = [];
+  var filepath = path.join(__dirname,"data","wallets.json");
+  if (!fs.existsSync(filepath)){
+    walletCollection.push(wallet);
+    fs.writeFile(filepath,JSON.stringify(walletCollection),()=>{
+        res.send(`successfully written ${wallet} into wallets!`);
+    });
+  }
+  else {
+    fs.readFile(filepath,(err,data)=>{
+      if (err)
+        throw err;
+      var walletCollection = JSON.parse(data.toString());
+      walletCollection.push(wallet);
+      fs.writeFile(filepath,JSON.stringify(walletCollection),()=>{
+          res.send(`successfully written ${wallet} into wallets!`);
+      });
+    });
+  }
 });
 
 app.post('/add/expense', function(req,res){
