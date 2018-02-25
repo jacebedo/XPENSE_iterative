@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const fs = require('fs');
+const cheerio = require('cheerio');
 const xpense_objects = require("./objects/objects.js");
 const bodyParser = require('body-parser');
 
@@ -15,7 +16,22 @@ app.get('/', (req, res) => {
 
 app.get(/.+\.html$/, (req, res) =>{
   var filepath = path.join(__dirname,"html",req.url);
-  res.sendFile(filepath);
+  var walletpath = path.join(__dirname,"data","wallets.json");
+  fs.readFile(filepath,(err,data)=>{
+    const $ = cheerio.load(data.toString());
+    var walletCollection = JSON.parse(fs.readFileSync(walletpath));
+    var body = "";
+    for (i in walletCollection) {
+      body += `<tr id="${i}">`;
+      body += `<td> ${walletCollection[i].name} </td>`;
+      body += `<td> ${walletCollection[i].balance} </td>`;
+      body += `<td> ${walletCollection[i].type} </td>`;
+      body += `</tr>`
+    }
+    $('table#walletTable > tbody').append(body);
+    res.send($.html());
+  });
+  // res.sendFile(filepath);
 })
 
 // TODO: Refactor and clean functions
@@ -30,7 +46,7 @@ app.post('/add/wallet', function(req,res){
   if (!fs.existsSync(filepath)){
     walletCollection.push(wallet);
     fs.writeFile(filepath,JSON.stringify(walletCollection),()=>{
-        res.send(`successfully written ${wallet} into wallets!`);
+        res.send(`successfully written ${wallet.type} into wallets!`);
     });
   }
   else {
