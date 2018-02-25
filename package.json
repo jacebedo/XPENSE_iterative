@@ -1,6 +1,6 @@
 {
   "name": "xpense",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A personal financing application for tracking the user's expenses and wallets.",
   "main": "server.js",
   "scripts": {
@@ -20,6 +20,7 @@
   "author": "Jean Pierre Acebedo",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "nodemon": "^1.14.12"
   }

@@ -88,10 +88,10 @@
               <h4>Add an expense</h4>
             </div>
             <div class="modal-body">
-              <form>
+              <form id="expenseForm" method="POST" action="/add/expense">
                 <div class="form-group">
                   <label for="expenseName"> Expense Name </label>
-                  <input class="form-control" id="expenseName" type="text" placeholder ="Expense Name"/>
+                  <input class="form-control" id="expenseName" name="expenseName" type="text" placeholder ="Expense Name"/>
                 </div>
 
                 <label for="expenseValue"> Value of Expense </label>
@@ -99,12 +99,12 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">$</span>
                   </div>
-                  <input class="form-control" id="expenseValue" type="number" min="0.00" step="0.01" placeholder =""/>
+                  <input class="form-control" id="expenseValue" name="expenseValue" type="number" min="0.00" step="0.01" placeholder =""/>
                 </div>
                 <br>
                 <div class="form-group">
                   <label for="expenseType"> Expense Type </label>
-                  <select id="expenseType" class="custom-select">
+                  <select id="expenseType" class="custom-select" name="expenseType">
                     <option selected></option>
                     <option value="food">Food</option>
                     <option value="clothing">Clothing</option>
@@ -117,7 +117,7 @@
 
                 <div class="form-group">
                   <label for="expenseWallet"> Select a wallet </label>
-                  <select id="expenseWallet"class="custom-select">
+                  <select id="expenseWallet"class="custom-select" name="expenseWallet">
                     <option selected></option>
                   </select>
                 </div>
@@ -126,7 +126,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Close</button>
-              <button type="button" id="addExpense" class="btn btn-primary">Add expense</button>
+              <button type="button" id="addExpense" class="btn btn-primary">Add Expense</button>
             </div>
           </div>
         </div>
@@ -141,15 +141,15 @@
               <h4>Add a Wallet</h4>
             </div>
             <div class="modal-body">
-              <form method="POST" action="/submitWallet">
+              <form id="walletForm" method="POST" action="/add/wallet">
                 <div class="form-group">
                   <label for="walletName"> Wallet Name </label>
-                  <input class="form-control" id="walletName" type="text" placeholder ="Wallet Name"/>
+                  <input class="form-control" id="walletName" name="walletName" type="text" placeholder ="Wallet Name"/>
                 </div>
 
                 <div class="form-group">
                   <label for="walletType"> Expense Type </label>
-                  <select id="walletType" class="custom-select">
+                  <select id="walletType" class="custom-select" name="walletType">
                     <option selected></option>
                     <option value="onetime">One-Time</option>
                     <option value="weekly">Weekly Deposits</option>
@@ -162,7 +162,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">$</span>
                   </div>
-                  <input class="form-control" id="expenseValue" type="number" min="0.00" step="0.01" placeholder =""/> <br>
+                  <input class="form-control" id="walletValue" name="walletValue" type="number" min="0.00" step="0.01" placeholder =""/> <br>
                   <div id="walletValueExplanation" class="text-muted">
                     For 'one-time' wallet types, enter the initial value you would like to deposit. <br>
                     For 'weekly' and 'monthly' wallet types, enter the amount you would like to deposit each time increment.
@@ -174,7 +174,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Close</button>
-              <button type="button" id="addExpense" class="btn btn-primary">Add Wallet</button>
+              <button type="button" id="addWallet" class="btn btn-primary">Add Wallet</button>
             </div>
           </div>
         </div>
