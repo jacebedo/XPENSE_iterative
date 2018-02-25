@@ -42,7 +42,7 @@ div#_title {
 div#button {
   transform: translateY(30%);
 }
-button#enter {
+a#enter {
   background-color: #bfc0c0;
   color: #4f5d75;
   font-family: 'oswald',sans-sans-serif;
@@ -50,7 +50,7 @@ button#enter {
   height: 4vh;
 }
 
-button#enter:hover {
+a#enter:hover {
   background-color: #4f5d75;
   color: #bfc0c0;
 }

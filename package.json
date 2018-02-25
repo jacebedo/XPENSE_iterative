@@ -1,6 +1,6 @@
 {
   "name": "xpense",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A personal financing application for tracking the user's expenses and wallets.",
   "main": "server.js",
   "scripts": {

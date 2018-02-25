@@ -12,7 +12,7 @@
     <!-- Default Font -->
     <link href="https://fonts.googleapis.com/css?family=Oswald:400,600" rel="stylesheet">
     <!-- Development Scripts -->
-    <script type='text/javascript' src='/js/menu.js'></script>
+    <script type='text/javascript' src='/js/menu.js' defer></script>
     <!-- Development CSS -->
     <link rel='stylesheet' href='/css/menu.css'/>
 
@@ -80,7 +80,7 @@
       </div>
     </div>
 
-    <!-- Modals -->
+    <!-- Expense Modal -->
     <div class="modal fade" id="expenseModal" role="dialog">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -133,6 +133,7 @@
       </div>
     </div>
 
+    <!-- Wallet Modal -->
     <div class="modal fade" id="walletModal" role="dialog">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -140,7 +141,7 @@
               <h4>Add a Wallet</h4>
             </div>
             <div class="modal-body">
-              <form>
+              <form method="POST" action="/submitWallet">
                 <div class="form-group">
                   <label for="walletName"> Wallet Name </label>
                   <input class="form-control" id="walletName" type="text" placeholder ="Wallet Name"/>

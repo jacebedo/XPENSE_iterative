@@ -2,7 +2,7 @@
 <html>
   <head>
     <title> XPENSE </title>
-    <script type='text/javascript' src='/js/main.js'></script>
+    <script type='text/javascript' src='/js/main.js' defer></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel='stylesheet' href='/css/main.css'/>
     <link href="https://fonts.googleapis.com/css?family=Oswald:400,600" rel="stylesheet">
@@ -33,9 +33,7 @@
             By keeping track of a personal budget and seeing the following expenses come in,
             this application hopes to help it's community become better spenders.
             <div id="button">
-              <form method="get" action="menu.html">
-                <button id="enter" class="btn"><span>Enter</span></button>
-              </form>
+              <a id="enter" href="./menu.html" role="button" class="btn"><span>Enter</span></a>
             </div>
           </div>
           <div id="title" class="col-xl-4 col-md-4">

@@ -16,3 +16,6 @@ app.get(/.+\.html$/, (req, res) =>{
 
 
 app.listen(3000, () => console.log('Server has been initialized on port 3000!'));
+
+
+/* Wallet Update: Wallet amount = Wallet amount +  ((Current Date - Last Updated)*Increment / Period) */
