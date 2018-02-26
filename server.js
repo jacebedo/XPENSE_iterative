@@ -3,8 +3,10 @@ const app = express();
 const path = require('path');
 const fs = require('fs');
 const cheerio = require('cheerio');
-const xpense_objects = require("./objects/objects.js");
 const bodyParser = require('body-parser');
+const dwc = require("./xpense_modules/dwc.js");
+const xpense_objects = require("./objects/objects.js");
+
 
 app.use(express.static('frontend'));
 app.use(bodyParser.json());
@@ -19,15 +21,7 @@ app.get(/.+\.html$/, (req, res) =>{
   var walletpath = path.join(__dirname,"data","wallets.json");
   fs.readFile(filepath,(err,data)=>{
     const $ = cheerio.load(data.toString());
-    var walletCollection = JSON.parse(fs.readFileSync(walletpath));
-    var body = "";
-    for (i in walletCollection) {
-      body += `<tr id="${i}">`;
-      body += `<td> ${walletCollection[i].name} </td>`;
-      body += `<td> ${walletCollection[i].balance} </td>`;
-      body += `<td> ${walletCollection[i].type} </td>`;
-      body += `</tr>`
-    }
+    var body = dwc.createWalletChildren(walletpath);
     $('table#walletTable > tbody').append(body);
     res.send($.html());
   });
