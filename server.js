@@ -3,14 +3,14 @@ const app = express();
 const path = require('path');
 const fs = require('fs');
 const cheerio = require('cheerio');
-const bodyParser = require('body-parser');
+const scheduler = require('node-schedule');
 const dwc = require("./xpense_modules/dwc.js");
 const xpense_objects = require("./objects/objects.js");
 
 
 app.use(express.static('frontend'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname,"/html","main.html"));
@@ -25,7 +25,6 @@ app.get(/.+\.html$/, (req, res) =>{
     $('table#walletTable > tbody').append(body);
     res.send($.html());
   });
-  // res.sendFile(filepath);
 })
 
 // TODO: Refactor and clean functions
@@ -33,8 +32,8 @@ app.post('/add/wallet', function(req,res){
   var name = req.body.walletName;
   var type = req.body.walletType;
   var balance = req.body.walletBalance;
-
-  var wallet = new xpense_objects.Wallet(name,type,balance);
+  var lastUpdate = new Date();
+  var wallet = new xpense_objects.Wallet(name,type,balance,lastUpdate);
   var walletCollection = [];
   var filepath = path.join(__dirname,"data","wallets.json");
   if (!fs.existsSync(filepath)){

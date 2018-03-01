@@ -23,7 +23,7 @@ function getWalletInputs(){
 }
 
 function isValidWallet(wallet) {
-  if (!wallet[0].match(/[A-Za-z ]{3,} /)){
+  if (wallet[0] == ""){
     return false;
   }
   if (wallet[1] === "") {
@@ -38,7 +38,7 @@ function isValidWallet(wallet) {
 function getWalletErrorMsg(wallet) {
   var body = "The following inputs are invalid: \n"
   if (!wallet[0].match(/[A-Za-z ]{3,} /)){
-    body += "- Wallet name (must be three or more alphabetic characters). \n"
+    body += "- Wallet name (Must be a non-empty input). \n"
   }
   if (wallet[1] === "") {
     body += "- Wallet type (must be one of the three options available). \n"
