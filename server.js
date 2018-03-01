@@ -5,6 +5,7 @@ const fs = require('fs');
 const cheerio = require('cheerio');
 const scheduler = require('node-schedule');
 const dwc = require("./xpense_modules/dwc.js");
+const updateWalletBalances = require('./xpense_modules/updateWalletBalances.js');
 const xpense_objects = require("./objects/objects.js");
 
 
@@ -32,8 +33,9 @@ app.post('/add/wallet', function(req,res){
   var name = req.body.walletName;
   var type = req.body.walletType;
   var balance = req.body.walletBalance;
+  var increment = balance;
   var lastUpdate = new Date();
-  var wallet = new xpense_objects.Wallet(name,type,balance,lastUpdate);
+  var wallet = new xpense_objects.Wallet(name,type,balance,increment,lastUpdate);
   var walletCollection = [];
   var filepath = path.join(__dirname,"data","wallets.json");
   if (!fs.existsSync(filepath)){
@@ -61,6 +63,11 @@ app.post('/add/expense', function(req,res){
   var value = req.body.expenseValue;
   var wallet = req.body.expenseWallet;
   res.send(`Expense Name: ${name}, Expense Type: ${type},Expense Value: ${value}, Expense Wallet ${wallet}`);
+});
+
+
+scheduler.scheduleJob('0 0 0 * * * ',function() {
+  updateWalletBalances();
 });
 
 
