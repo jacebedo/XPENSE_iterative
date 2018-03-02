@@ -71,7 +71,10 @@ scheduler.scheduleJob('0 0 0 * * * ',function() {
 });
 
 
-app.listen(3000, () => console.log('Server has been initialized on port 3000!'));
+app.listen(3000, () => {
+  updateWalletBalances();
+  console.log('Server has been initialized on port 3000!')
+});
 
 
 /* Wallet Update: Wallet amount = Wallet amount +  ((Current Date - Last Updated)*Increment / Period) */

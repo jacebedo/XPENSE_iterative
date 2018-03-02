@@ -17,7 +17,6 @@ module.exports = function() {
   }
 }
 
-
 function updateWallet(wallet){
   var currentDate = new Date();
   var last_update_in_days = Math.round((currentDate - wallet.lastUpdate) * 86,400,000);
