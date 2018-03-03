@@ -4,57 +4,30 @@ const path = require('path');
 const fs = require('fs');
 const cheerio = require('cheerio');
 const scheduler = require('node-schedule');
-const dwc = require("./xpense_modules/dwc.js");
+const data = require("./xpense_modules/data.js")
 const updateWalletBalances = require('./xpense_modules/updateWalletBalances.js');
 const xpense_objects = require("./objects/objects.js");
 
 
+app.use(express.static('./html'));
 app.use(express.static('frontend'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname,"/html","main.html"));
+app.all("/",express.static('./html', {index: "main.html"}));
+
+app.get("/data/wallets.json", function(req,res){
+  // var walletCollection = data.getWalletCollection();
+  var walletpath = path.join(__dirname,"data","wallets.json");
+  res.sendFile(walletpath);
 });
 
-app.get(/.+\.html$/, (req, res) =>{
-  var filepath = path.join(__dirname,"html",req.url);
-  var walletpath = path.join(__dirname,"data","wallets.json");
-  fs.readFile(filepath,(err,data)=>{
-    const $ = cheerio.load(data.toString());
-    var body = dwc.createWalletChildren(walletpath);
-    $('table#walletTable > tbody').append(body);
-    res.send($.html());
-  });
-})
 
 // TODO: Refactor and clean functions
 app.post('/add/wallet', function(req,res){
-  var name = req.body.walletName;
-  var type = req.body.walletType;
-  var balance = req.body.walletBalance;
-  var increment = balance;
-  var lastUpdate = new Date();
-  var wallet = new xpense_objects.Wallet(name,type,balance,increment,lastUpdate);
-  var walletCollection = [];
-  var filepath = path.join(__dirname,"data","wallets.json");
-  if (!fs.existsSync(filepath)){
-    walletCollection.push(wallet);
-    fs.writeFile(filepath,JSON.stringify(walletCollection),()=>{
-        res.send(`successfully written ${wallet.type} into wallets!`);
-    });
-  }
-  else {
-    fs.readFile(filepath,(err,data)=>{
-      if (err)
-        throw err;
-      var walletCollection = JSON.parse(data.toString());
-      walletCollection.push(wallet);
-      fs.writeFile(filepath,JSON.stringify(walletCollection),()=>{
-          res.send(`successfully written ${wallet} into wallets!`);
-      });
-    });
-  }
+  var wallet = req.body;
+  data.insertWallet(wallet);
+  res.send("Success!");
 });
 
 app.post('/add/expense', function(req,res){
@@ -64,6 +37,8 @@ app.post('/add/expense', function(req,res){
   var wallet = req.body.expenseWallet;
   res.send(`Expense Name: ${name}, Expense Type: ${type},Expense Value: ${value}, Expense Wallet ${wallet}`);
 });
+
+
 
 
 scheduler.scheduleJob('0 0 0 * * * ',function() {
