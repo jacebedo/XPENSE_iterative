@@ -40,6 +40,33 @@ app.post('/add/expense', function(req,res){
   res.send(`Expense Name: ${name}, Expense Type: ${type},Expense Value: ${value}, Expense Wallet ${wallet}`);
 });
 
+app.post('/add/walletBalance',function(req,res){
+    var walletpath = path.join(__dirname,"data","wallets.json");
+    console.log("Update request recieved!");
+    if (fs.existsSync(walletpath)){
+        fs.readFile(walletpath,function(err,contents){
+            var wallets = JSON.parse(contents.toString());
+            for (item of wallets) {
+                if (item.name === req.body.name){
+                    var balance = parseFloat(item.balance);
+                    balance += parseFloat(req.body.amount);
+                    item.balance = (balance.toString());
+                    item.lastUpdate = new Date();
+                    
+                }
+            fs.writeFile(walletpath,JSON.stringify(wallets),function(err){
+                if (err){
+                    console.log("err");
+                    throw err;
+                }
+
+            });
+            }
+            res.send("SUCCESS!");
+        });
+    }
+});
+
 scheduler.scheduleJob('0 0 0 * * * ',function() {
   updateWalletBalances();
 });

@@ -4,7 +4,4 @@ module.exports.Wallet = function(name,type,balance,increment,lastUpdate) {
   this.balance = balance;
   this.increment = increment;
   this.lastUpdate = lastUpdate;
-  this.addBalance = function(amount){
-    this.balance += amount;
-  }
 }

@@ -62,9 +62,14 @@ function setWalletOverviewModal(wallet) {
 
     setWalletOverviewBody(wallet);
     $("#addBalance").click(function(){
+        passNameToBalanceModal(wallet.name);
         $("#addBalanceModal").modal();
         $("#walletOverviewModal").modal("toggle");
     });
+}
+
+function passNameToBalanceModal(name){
+    $('#walletToAddBalanceTo').val(name);
 }
 
 function setWalletOverviewBody(wallet){
