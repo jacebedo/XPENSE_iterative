@@ -62,15 +62,27 @@ function insertIntoWalletTable(wallet){
 }
 
 function setWalletListener(wallet) {
+
+    var wallets = [];
+    $.getJSON("/data/wallets.json", function(data){
+        for (item of data) {
+            wallets.push(item);
+        }
+    });
+
     if (wallet == undefined) {
-        $(`tr.wallet`).click(function(){
-            console.log("HELLO FROM ALL");
-            // Use the same function
+        $('tr.wallet').each(function() {
+
+            $(this).click(function(){
+                setWalletOverviewModal($(this).attr('id').replace(/_/g," "),wallets);
+                $("#walletOverviewModal").modal();
+            });
         });
+
     }
     else {
         $(`tr#${wallet.name.replace(/\ /g,"_")}`).click(function(){
-            console.log("HELLO FROM THIS NEW WALLET!");
+            $('#walletOverviewModal').modal();
         });
     }
 
@@ -107,4 +119,19 @@ function generate_wallet_err_msg(wallet) {
     body += "- Wallet balance (must be a positive value, less than $1,000,000.00). \n"
   }
   return body;
+}
+
+function setWalletOverviewModal(walletname,wallets) {
+    var wallet = {};
+    for (item of wallets) {
+        if (item.name === walletname){
+            wallet = item;
+        }
+    }
+    $("#walletOverviewName").html(`<h1> Name: ${wallet.name} </h1>`);
+    $("#walletOverviewType").html(`<h5> Type: ${wallet.type} </h5>`);
+    $("#walletOverviewBalance").html(`<h5> Balance: ${parseFloat(wallet.balance).toFixed(2)} </h5>`);
+    $("#walletOverviewIncrement").html(`<h5> Periodic Increment: ${parseFloat(wallet.increment).toFixed(2)} </h5>`);
+    $("#walletOverviewLastUpdate").html(`<h5> Last Updated On: ${wallet.lastUpdate} </h5>`);
+
 }
