@@ -2,7 +2,6 @@
 $('#addWallet').click( function(){
 
   var wallet = get_wallet();
-  console.log(wallet);
   if (is_valid_wallet(wallet)){
     var wallet_post_options = get_wallet_post_options(wallet);
     $.ajax(wallet_post_options);
@@ -12,8 +11,8 @@ $('#addWallet').click( function(){
     alert(err);
   }
 
-});
 
+});
 
 
 function get_wallet(){
@@ -32,6 +31,7 @@ function get_wallet_post_options(wallet) {
     data: wallet,
     success: function(data,status){
       insertIntoWalletTable(wallet);
+      setWalletListener(wallet);
       success_callback(data,status);
     },
     error: error_callback
@@ -40,11 +40,42 @@ function get_wallet_post_options(wallet) {
 }
 
 function success_callback(data,status) {
+    $("#walletModal").modal('hide');
   alert("You have successfully added a wallet!");
-  
 }
+
 function error_callback(data,status) {
-  alert("Server Error 5XX");
+    $("#walletModal").modal('hide');
+
+    alert("Server Error 5XX");
+}
+
+function insertIntoWalletTable(wallet){
+  var body = "";
+  body += `<tr class="wallet" id="${wallet.name.replace(/\ /g,"_")}">`;
+  body += `<td> ${wallet.name} </td>`;
+  body += `<td> ${parseFloat(wallet.balance).toFixed(2)} </td>`;
+  body += `<td> ${wallet.type} </td>`;
+  body += `</tr>`;
+  $("table#walletTable > tbody").append(body);
+
+}
+
+function setWalletListener(wallet) {
+    if (wallet == undefined) {
+        $(`tr.wallet`).click(function(){
+            console.log("HELLO FROM ALL");
+            // Use the same function
+        });
+    }
+    else {
+        $(`tr#${wallet.name.replace(/\ /g,"_")}`).click(function(){
+            console.log("HELLO FROM THIS NEW WALLET!");
+        });
+    }
+
+
+
 }
 
 function is_valid_wallet(wallet) {

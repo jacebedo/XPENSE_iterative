@@ -19,7 +19,12 @@ app.all("/",express.static('./html', {index: "main.html"}));
 app.get("/data/wallets.json", function(req,res){
   // var walletCollection = data.getWalletCollection();
   var walletpath = path.join(__dirname,"data","wallets.json");
-  res.sendFile(walletpath);
+  if (fs.existsSync(walletpath)){
+      res.sendFile(walletpath);
+  }
+  else {
+      res.send("");
+  }
 });
 
 
