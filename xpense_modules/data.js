@@ -26,17 +26,3 @@ module.exports.insertWallet = function(wallet){
   }
   return;
 }
-
-module.exports.getWalletCollection = function() {
-  var filepath = path.join(__dirname,"../","data","wallets.json");
-  if (fs.existsSync(filepath)){
-    fs.readFile(filepath,(err,data)=>{
-      if (err)
-        throw err;
-      var walletCollection = JSON.parse(data.toString());
-      return walletCollection;
-    });
-  }
-
-
-}

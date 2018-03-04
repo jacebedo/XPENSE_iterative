@@ -210,7 +210,30 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Close</button>
-              <button type="button" id="" class="btn btn-success">Add to Balance</button>
+              <button type="button" id="addBalance" class="btn btn-success">Add to Balance</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Balance Modal -->
+    <div class="modal fade" id="addBalanceModal" role="dialog">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4>Enter a balance to add to this wallet</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <input class="form-control" id="valueToAdd" name="walletBalance" type="number" min="0.00" step="0.01" placeholder =""/> <br>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Close</button>
+              <button type="button" id="confirmAmount" class="btn btn-success">OK</button>
             </div>
           </div>
         </div>

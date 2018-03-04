@@ -15,41 +15,6 @@ $('#addWallet').click( function(){
 });
 
 
-function get_wallet(){
-  var name = $('#walletName').val();
-  var type = $('#walletType').val();
-  var balance = $('#walletBalance').val();
-  var increment = balance;
-  var lastUpdate = new Date(); // Current Date
-  return new Wallet(name,type,balance,increment,lastUpdate);
-}
-
-function get_wallet_post_options(wallet) {
-  var wallet_post_options = {
-    url: "/add/wallet",
-    method: "post",
-    data: wallet,
-    success: function(data,status){
-      insertIntoWalletTable(wallet);
-      setWalletListener(wallet);
-      success_callback(data,status);
-    },
-    error: error_callback
-  }
-  return wallet_post_options;
-}
-
-function success_callback(data,status) {
-    $("#walletModal").modal('hide');
-  alert("You have successfully added a wallet!");
-}
-
-function error_callback(data,status) {
-    $("#walletModal").modal('hide');
-
-    alert("Server Error 5XX");
-}
-
 function insertIntoWalletTable(wallet){
   var body = "";
   body += `<tr class="wallet" id="${wallet.name.replace(/\ /g,"_")}">`;
@@ -74,7 +39,8 @@ function setWalletListener(wallet) {
         $('tr.wallet').each(function() {
 
             $(this).click(function(){
-                setWalletOverviewModal($(this).attr('id').replace(/_/g," "),wallets);
+                var targetWallet = findTargetWallet($(this).attr('id').replace(/_/g," "),wallets)
+                setWalletOverviewModal(targetWallet);
                 $("#walletOverviewModal").modal();
             });
         });
@@ -82,12 +48,45 @@ function setWalletListener(wallet) {
     }
     else {
         $(`tr#${wallet.name.replace(/\ /g,"_")}`).click(function(){
+            setWalletOverviewModal(wallet);
             $('#walletOverviewModal').modal();
         });
     }
 
 
 
+}
+
+
+function setWalletOverviewModal(wallet) {
+
+    setWalletOverviewBody(wallet);
+    $("#addBalance").click(function(){
+        $("#addBalanceModal").modal();
+        $("#walletOverviewModal").modal("toggle");
+    });
+}
+
+function setWalletOverviewBody(wallet){
+    $("#walletOverviewName").html(`<h1> Name: ${wallet.name} </h1>`);
+    $("#walletOverviewType").html(`<h5> Type: ${wallet.type} </h5>`);
+    $("#walletOverviewBalance").html(`<h5> Balance: ${parseFloat(wallet.balance).toFixed(2)} </h5>`);
+    $("#walletOverviewIncrement").html(`<h5> Periodic Increment: ${parseFloat(wallet.increment).toFixed(2)} </h5>`);
+    $("#walletOverviewLastUpdate").html(`<h5> Last Updated On: ${wallet.lastUpdate} </h5>`);
+}
+
+function findTargetWallet(walletname,wallets){
+    var wallet = {};
+    if (wallets.length > 1) {
+        for (item of wallets) {
+            if (item.name === walletname){
+                return item;
+            }
+        }
+    }
+    else {
+        return wallets;
+    }
 }
 
 function is_valid_wallet(wallet) {
@@ -121,17 +120,37 @@ function generate_wallet_err_msg(wallet) {
   return body;
 }
 
-function setWalletOverviewModal(walletname,wallets) {
-    var wallet = {};
-    for (item of wallets) {
-        if (item.name === walletname){
-            wallet = item;
-        }
-    }
-    $("#walletOverviewName").html(`<h1> Name: ${wallet.name} </h1>`);
-    $("#walletOverviewType").html(`<h5> Type: ${wallet.type} </h5>`);
-    $("#walletOverviewBalance").html(`<h5> Balance: ${parseFloat(wallet.balance).toFixed(2)} </h5>`);
-    $("#walletOverviewIncrement").html(`<h5> Periodic Increment: ${parseFloat(wallet.increment).toFixed(2)} </h5>`);
-    $("#walletOverviewLastUpdate").html(`<h5> Last Updated On: ${wallet.lastUpdate} </h5>`);
+function get_wallet(){
+  var name = $('#walletName').val();
+  var type = $('#walletType').val();
+  var balance = parseFloat($('#walletBalance').val()).toFixed(2);
+  var increment = balance;
+  var lastUpdate = new Date(); // Current Date
+  return new Wallet(name,type,balance,increment,lastUpdate);
+}
 
+function get_wallet_post_options(wallet) {
+  var wallet_post_options = {
+    url: "/add/wallet",
+    method: "post",
+    data: wallet,
+    success: function(data,status){
+      insertIntoWalletTable(wallet);
+      setWalletListener(wallet);
+      success_callback(data,status);
+    },
+    error: error_callback
+  }
+  return wallet_post_options;
+}
+
+function success_callback(data,status) {
+    $("#walletModal").modal('hide');
+  alert("You have successfully added a wallet!");
+}
+
+function error_callback(data,status) {
+    $("#walletModal").modal('hide');
+
+    alert("Server Error 5XX");
 }
