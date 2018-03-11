@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    $('#walletTable > tbody').empty();
+    $('#expensesTable > tbody').empty();
     /* Load Tables */
     $.getJSON("/data/wallets.json", function(data){
       for (i in data) {
@@ -7,16 +9,23 @@ $(document).ready(function(){
       setWalletListener();
     });
     /* Load Expenses */
+    $.getJSON("/data/expenses.json", function(data){
+      for (i in data) {
+        insertIntoExpenseTable(data[i]);
+      }
+    });
 
 });
 
 
 $("#confirmAmount").click(function(){
+    var date = new Date();
     var name = $("#walletToAddBalanceTo").val();
     var amount = $("#valueToAdd").val();
     var body = {
         name: `${name}`,
-        amount: `${amount}`
+        amount: `${parseFloat(amount).toFixed(2)}`,
+        lastUpdate: `${date}`
     }
     var options =
     {

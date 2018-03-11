@@ -25,6 +25,16 @@ app.get("/data/wallets.json", function(req,res){
   }
 });
 
+app.get("/data/expenses.json", function(req,res){
+  var expensepath = path.join(__dirname,"data","expenses.json");
+  if (fs.existsSync(expensepath)){
+      res.sendFile(expensepath);
+  }
+  else {
+      res.send("");
+  }
+});
+
 
 app.post('/add/wallet', function(req,res){
   var wallet = req.body;
@@ -33,27 +43,30 @@ app.post('/add/wallet', function(req,res){
 });
 
 app.post('/add/expense', function(req,res){
-  var name = req.body.expenseName;
-  var type = req.body.expenseType;
-  var value = req.body.expenseValue;
-  var wallet = req.body.expenseWallet;
-  res.send(`Expense Name: ${name}, Expense Type: ${type},Expense Value: ${value}, Expense Wallet ${wallet}`);
+    var expense = req.body;
+    data.insertExpense(expense);
+    data.depositExpense(expense.expenseValue,expense.expenseWallet);
+    res.send("Success!");
+
 });
 
 app.post('/add/walletBalance',function(req,res){
     var walletpath = path.join(__dirname,"data","wallets.json");
-    console.log("Update request recieved!");
+    console.log("Update request recieved for item: ");
+    console.log(req.body);
     if (fs.existsSync(walletpath)){
         fs.readFile(walletpath,function(err,contents){
             var wallets = JSON.parse(contents.toString());
             for (item of wallets) {
                 if (item.name === req.body.name){
+                    console.log("found!");
                     var balance = parseFloat(item.balance);
                     balance += parseFloat(req.body.amount);
-                    item.balance = (balance.toString());
-                    item.lastUpdate = new Date();
-                    
+                    item.balance = balance.toFixed(2);
+                    item.lastUpdate = req.body.lastUpdate;
                 }
+
+            }
             fs.writeFile(walletpath,JSON.stringify(wallets),function(err){
                 if (err){
                     console.log("err");
@@ -61,7 +74,6 @@ app.post('/add/walletBalance',function(req,res){
                 }
 
             });
-            }
             res.send("SUCCESS!");
         });
     }

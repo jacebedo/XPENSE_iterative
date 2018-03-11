@@ -7,6 +7,10 @@ var Wallet = function(name,type,balance,increment,lastUpdate) {
 
 }
 
-var Expense = function(/* Expense Fields */) {
-  // Expense object - Frontend implementation
+var Expense = function(name,value,type,wallet,lastUpdate) {
+    this.name = name;
+    this.value = value;
+    this.type = type;
+    this.wallet = wallet;
+    this.lastUpdate = lastUpdate;
 }
