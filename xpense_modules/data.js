@@ -27,17 +27,6 @@ module.exports.insertWallet = function(wallet){
   return;
 }
 
-
-
-// module.exports.getExpenses = function() {
-//     var expensepath = path.join(__dirname,"../","data","expenses.json");
-//     if (fs.existsSync(expensepath)){
-//         var data = fs.readFileSync(expensepath);
-//         return JSON.parse(data.toString());
-//     }
-// }
-
-
 module.exports.insertExpense = function(expense) {
     var expenseCollection = [];
     var filepath = path.join(__dirname,"../","data","expenses.json");
@@ -75,7 +64,6 @@ module.exports.depositExpense = function(amount,walletName){
                 targetWallet = wallet;
             }
         }
-
         targetWallet.balance -= parseFloat(amount);
         fs.writeFile(walletpath,JSON.stringify(walletCollection),function(err){
             if (err) { throw err; }

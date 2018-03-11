@@ -45,7 +45,7 @@ app.post('/add/wallet', function(req,res){
 app.post('/add/expense', function(req,res){
     var expense = req.body;
     data.insertExpense(expense);
-    data.depositExpense(expense.expenseValue,expense.expenseWallet);
+    data.depositExpense(expense.value,expense.wallet);
     res.send("Success!");
 
 });

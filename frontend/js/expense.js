@@ -18,6 +18,7 @@ $('#addExpense').click(function(){
       success: function(){
           $('#expenseModal').modal("toggle");
           insertIntoExpenseTable(expense);
+          updateWalletsTable();
       }
     }
 
@@ -49,4 +50,14 @@ function getExpense() {
     var wallet = $('#expenseWallet').val();
     var lastUpdate = new Date(); // Current Date
     return new Expense(name,value,type,wallet,lastUpdate);
+}
+
+function updateWalletsTable() {
+    $('#walletTable > tbody').empty();
+    $.getJSON("/data/wallets.json", function(data){
+      for (i in data) {
+        insertIntoWalletTable(data[i]);
+      }
+      setWalletListener();
+    });
 }
